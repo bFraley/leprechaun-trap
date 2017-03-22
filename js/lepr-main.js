@@ -35,15 +35,16 @@ var lepmove = {
 /** Arrow keys char move events */
 window.addEventListener("keydown", function(e) {
     var k = e.keyCode || evt.which;
-    switch(k) {
-        case 37: lepmove.left(); break;
-        case 39: lepmove.right(); break;
-        case 38: lepmove.up(); break;
-        case 40: lepmove.down(); break;
-        case 32: TweenMax.to(char, .5, { y:"-=50px", ease:Power2.easeOut});
-                 TweenMax.to(char, .5, { y:"+=50px", ease:Bounce.easeOut, delay:.5});
-        default: console.log("fall through");
+    if (k == 32 || (k >= 37 && k <= 40)) {
+        e.preventDefault();
+        switch(k) {
+            case 37: lepmove.left(); break;
+            case 39: lepmove.right(); break;
+            case 38: lepmove.up(); break;
+            case 40: lepmove.down(); break;
+            case 32: TweenMax.to(char, .5, { y:"-=50px", ease:Power2.easeOut});
+                     TweenMax.to(char, .5, { y:"+=50px", ease:Bounce.easeOut, delay:.5});
+            default: false;
+        }
     }
-
-    e.preventDefault();
 }, true);
