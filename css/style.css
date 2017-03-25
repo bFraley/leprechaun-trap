@@ -99,14 +99,26 @@ h1, h2, h3, h4, h5, h5 {
 }
 
 .clovers {
-    background-color:green;
+    background-color:none;
+    background-image:url(../assets/items/clover.png);
+    background-size:80%;
+    background-repeat: no-repeat;
+    background-position:center center;
+    opacity:0.8;
 }
 
 .coins {
-    background-color:yellow;
+    background-color:none;
+    background-image:url(../assets/items/coin.png);
+    background-size:80%;
+    background-repeat: no-repeat;
+    background-position:center center;
+    opacity:0.8;
 }
 
 .traps {
     background-color: #000;
+
+
 }
 
