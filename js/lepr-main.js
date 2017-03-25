@@ -1,4 +1,43 @@
 
+
+function Level(width, height, level_type, level_name, difficulty) {
+    this.width = width;
+    this.height = height;
+    this.level_type = level_type;
+    this.level_name = level_name;
+    this.tile_size = 20;
+    this.tiles_accross = this.width / this.tile_size;
+    this.tiles_down = this.height / this.tile_size;
+    this.total_tiles = this.tiles_accross * this.tiles_down;
+
+    // Generate clovers and coins, each in the amount of tiles across.
+    // Assign them to a tile if it isn't taken. If already taken, pass.
+    this.gen_game = function() {
+
+        var level_objects = [
+            ['clovers'],
+            ['coins'],
+            ['traps']
+        ];
+            
+        var tile_number = 0;
+
+        for (var i = 0; i < level_objects.length; i++) {
+
+            for (var j = 0; j < this.tiles_accross; j++) {
+                tile_number = Math.floor(Math.random() * (this.total_tiles));
+                level_objects[i].push(tile_number);
+            }
+        }
+        return level_objects;
+    };
+}
+
+var LEVEL1 = new Level(500, 500, "trap floor", "clovers and coins", 5);
+var levelobjects = LEVEL1.gen_game();
+console.log(LEVEL1);
+console.log(levelobjects);
+
 function report_tiles_coords() {
     var tile_map_state = [];
     var tiles = document.getElementsByClassName('tile');
