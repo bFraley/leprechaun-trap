@@ -1,5 +1,4 @@
 
-
 function Level(width, height, level_type, level_name, difficulty) {
     this.width = width;
     this.height = height;
@@ -31,10 +30,46 @@ function Level(width, height, level_type, level_name, difficulty) {
         }
         return level_objects;
     };
-}
+
+    this.render = function(levelobjects) {
+        var gamewrapper = document.getElementById('game-wrapper');
+        var tile_count = 0;
+
+        // Create tile row elements
+        for (var i = 1; i <= this.tiles_down; i++) {
+
+            var tile_row = document.createElement('div');
+            gamewrapper.appendChild(tile_row);
+            tile_row.className = 'tile-row';
+
+            // Populate row with tiles and clovers, coins, and traps
+
+            for (var t = 1; t <= this.tiles_accross; t++) {
+
+                var tile = document.createElement('div');
+                tile_row.appendChild(tile);
+                tile.className = 'tile';
+                tile.id = "" + i + t;  // row number X tile number index
+                tile_count += 1;
+
+                // Does this tile get a clover, coin, or trap?
+                if (levelobjects[0].indexOf(tile_count) > -1)
+                    tile.className += " clovers";
+                
+                if (levelobjects[1].indexOf(tile_count) > -1)
+                    tile.className += " coins";
+
+                if (levelobjects[2].indexOf(tile_count) > -1)
+                    tile.className += " traps";
+                
+            }
+        }
+    }
+};
 
 var LEVEL1 = new Level(500, 500, "trap floor", "clovers and coins", 5);
 var levelobjects = LEVEL1.gen_game();
+LEVEL1.render(levelobjects);
 console.log(LEVEL1);
 console.log(levelobjects);
 
