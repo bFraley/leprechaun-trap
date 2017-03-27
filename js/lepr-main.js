@@ -158,6 +158,3 @@ function leprechaun_trap_init() {
 }
 
 leprechaun_trap_init();
-
-report_tiles_coords();
-
