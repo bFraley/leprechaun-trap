@@ -1,4 +1,5 @@
 
+// Level object  programmatically delivers a level, tile map, and game objects
 function Level(width, height, level_type, level_name, difficulty) {
     this.width = width;
     this.height = height;
@@ -31,6 +32,7 @@ function Level(width, height, level_type, level_name, difficulty) {
         return level_objects;
     };
 
+    // Render all game area rows and tiles and game objects within
     this.render = function(levelobjects) {
         var gamewrapper = document.getElementById('game-wrapper');
         var tile_count = 0;
@@ -67,29 +69,29 @@ function Level(width, height, level_type, level_name, difficulty) {
     }
 };
 
-var LEVEL1 = new Level(500, 500, "trap floor", "clovers and coins", 5);
-var levelobjects = LEVEL1.gen_game();
-LEVEL1.render(levelobjects);
-console.log(LEVEL1);
-console.log(levelobjects);
-
+// Returns tile_map_state containing the coordinates of every game tile
 function report_tiles_coords() {
     var tile_map_state = [];
     var tiles = document.getElementsByClassName('tile');
 
     for (var i = 0; i < tiles.length; i++) {
+
         var coords = tiles[i].getBoundingClientRect();
         tile_map_state.push(coords);
+
         return tile_map_state;
     }
 }
 
+// Returns left and right side coords of rows
 function get_tile_row_coords() {
     var tile_rows = document.getElementsByClassName('tile-row');
+
     for (var i = 0; i < tile_rows.length; i++) {
+
         var coords = tile_rows[i].getBoundingClientRect();
-        console.log(coords.left + " " + coords.right);
-        console.log("ROW: " + coords);
+
+        return [coords.left, coords.right];
     }
 }
 
@@ -99,7 +101,12 @@ function leprechaun_trap_init() {
 
     var char = document.getElementById('char');
     var gamewrapper = document.getElementById("game-wrapper");
+    var LEVEL1 = new Level(500, 500, "trap floor", "clovers and coins", 5);
+    var levelobjects = LEVEL1.gen_game();
 
+    LEVEL1.render(levelobjects);
+
+    // Basic character movement with arrow keys, and spacebar for jump.
     var lepmove = {
         left: function() {
            TweenMax.to(char, 0.0, {
@@ -148,10 +155,9 @@ function leprechaun_trap_init() {
         }
     }, true);
 
-    report_tiles_coords();
-    get_tile_row_coords();
-
 }
 
 leprechaun_trap_init();
+
+report_tiles_coords();
 
