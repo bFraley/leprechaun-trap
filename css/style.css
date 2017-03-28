@@ -10,7 +10,7 @@ body {
     height:100%;
     margin:0;
     padding:0;
-    background-color:rgb(212, 244, 66);
+    background-color:#eee;
     opacity:0.8;
 }
 
@@ -20,6 +20,23 @@ body {
     padding:20px 40px;
     min-width:300px;
     min-height:500px;
+}
+
+article {
+    width:90%;
+    margin:auto;
+    padding:20px;
+    text-align: center;
+    background-color:#eee;
+    color:green;
+    font-size:1.7em;
+    box-shadow:inset 0px 0px 50px green;
+    margin-bottom:50px;
+}
+
+article h2 {
+    color:#222;
+    text-decoration:underline;
 }
 
 a:link, a:visited, a:focus {
@@ -60,6 +77,11 @@ h1, h2, h3, h4, h5, h5 {
     text-shadow:1px 2px 3px 10px yellow;
     white-space: nowrap;
     margin-right:20px;
+}
+#logo a:link,
+#logo a:visited,
+#logo a:focus {
+    color:green;
 }
 
 .dev-menu {
