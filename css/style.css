@@ -22,16 +22,22 @@ body {
     min-height:500px;
 }
 
+.page-title {
+    color:olive;
+    margin:20px;
+}
+
 article {
     width:90%;
     margin:auto;
-    padding:20px;
+    padding:50px;
     text-align: center;
     background-color:#eee;
     color:green;
-    font-size:1.7em;
+    font-size:1.5em;
     box-shadow:inset 0px 0px 50px green;
     margin-bottom:50px;
+    border-radius:5px;
 }
 
 article h2 {
@@ -40,7 +46,7 @@ article h2 {
 }
 
 a:link, a:visited, a:focus {
-    color:#fff;
+    color:olive;
     text-decoration:none;
 }
 ul {
@@ -55,11 +61,13 @@ ul li {
 }
 
 nav ul li {
-    background-color:green;
+    background-color:#fff;
     padding:10px;
     border-radius:10px;
     width:30px;
     text-align:center;
+    border:solid 2px green;
+    box-shadow:inset 0px 0px 5px green;
 }
 
 nav ul li:hover {
