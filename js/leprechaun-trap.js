@@ -70,7 +70,7 @@ function Level(width, height, level_type, level_name, difficulty) {
 };
 
 // Returns tile_map_state containing the coordinates of every game tile
-function report_tiles_coords() {
+function get_tilemap_coords() {
     var tile_map_state = [];
     var tiles = document.getElementsByClassName('tile');
 
@@ -78,21 +78,23 @@ function report_tiles_coords() {
 
         var coords = tiles[i].getBoundingClientRect();
         tile_map_state.push(coords);
-
-        return tile_map_state;
     }
+
+    return tile_map_state;
 }
 
 // Returns left and right side coords of rows
-function get_tile_row_coords() {
+function get_tilerow_coords() {
     var tile_rows = document.getElementsByClassName('tile-row');
+    var row_coords = [];
 
     for (var i = 0; i < tile_rows.length; i++) {
 
         var coords = tile_rows[i].getBoundingClientRect();
-
-        return [coords.left, coords.right];
+        row_coords.push([coords.left, coords.right]);
     }
+
+    return row_coords;
 }
 
 /** Initiate game start values and events */
@@ -165,4 +167,5 @@ function leprechaun_trap_init() {
 }
 
 // Launch
+
 leprechaun_trap_init();
