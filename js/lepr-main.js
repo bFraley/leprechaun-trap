@@ -99,11 +99,13 @@ function get_tile_row_coords() {
 
 function leprechaun_trap_init() {
 
+    // Character and game wrapper
     var char = document.getElementById('char');
     var gamewrapper = document.getElementById("game-wrapper");
+
+    // Instantiate a Level, generate game, and render.
     var LEVEL1 = new Level(500, 500, "trap floor", "clovers and coins", 5);
     var levelobjects = LEVEL1.gen_game();
-
     LEVEL1.render(levelobjects);
 
     // Basic character movement with arrow keys, and spacebar for jump.
@@ -136,25 +138,31 @@ function leprechaun_trap_init() {
                 backgroundPositionY: '-0px'
             })
         },
+        jump: function() {
+            TweenMax.to(char, .25, { y:"-=50px", ease:Power2.easeOut});
+            TweenMax.to(char, .25, { y:"+=50px", ease:Bounce.easeOut, delay:.25, immediateRender:false});
+        },
     }
 
     /** Arrow keys char move events */
     window.addEventListener("keydown", function(e) {
         var k = e.keyCode || evt.which;
         if (k == 32 || (k >= 37 && k <= 40)) {
+
+            var jumpComplete = false;
+
             e.preventDefault();
             switch(k) {
                 case 37: lepmove.left(); break;
                 case 39: lepmove.right(); break;
                 case 38: lepmove.up(); break;
                 case 40: lepmove.down(); break;
-                case 32: TweenMax.to(char, .5, { y:"-=50px", ease:Power2.easeOut});
-                         TweenMax.to(char, .5, { y:"+=50px", ease:Bounce.easeOut, delay:.5});
+                case 32: lepmove.jump(); break;
                 default: false;
             }
         }
-    }, true);
-
+    }, false);
 }
 
+// Launch
 leprechaun_trap_init();
