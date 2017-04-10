@@ -97,6 +97,19 @@ function get_tilerow_coords() {
     return row_coords;
 }
 
+function get_gamepiece_coords(piece_class) {
+    var pieces = document.getElementsByClassName(piece_class);
+    var piece_coords = [];
+
+    for (var i = 0; i < pieces.length; i++) {
+
+        var coords = pieces[i].getBoundingClientRect();
+        piece_coords.push([coords.left, coords.right]);
+    }
+
+    return piece_coords;
+}
+
 /** Initiate game start values and events */
 
 function leprechaun_trap_init() {
@@ -169,3 +182,18 @@ function leprechaun_trap_init() {
 // Launch
 
 leprechaun_trap_init();
+
+/**
+tiles = get_tilemap_coords();
+rows = get_tilerow_coords();
+coins = get_gamepiece_coords('coins');
+clovers = get_gamepiece_coords('clovers');
+traps = get_gamepiece_coords('traps');
+
+console.log(tiles);
+console.log(rows);
+console.log(coins);
+console.log(clovers);
+console.log(traps);
+
+*/
