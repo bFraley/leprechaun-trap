@@ -132,36 +132,36 @@ function check_collision() {
         // Coins
         if (right >= coins[i][0] && right <= coins[i][1]
                 && bottom >= coins[i][2] && bottom < coins[i][3]) {
-            
+
             document.getElementsByClassName('coins')[i].style.background = "none";
         }
         else if (left >= coins[i][0] && left <= coins[i][1]
                 && top >= coins[i][2] && top < coins[i][3]) {
-            
+
             document.getElementsByClassName('coins')[i].style.background = "none";
         }
 
         // Clovers
         else if (right >= clovers[i][0] && right <= clovers[i][1]
                 && bottom >= clovers[i][2] && bottom < clovers[i][3]) {
-            
+
             document.getElementsByClassName('clovers')[i].style.background = "none";
         }
         else if (left >= clovers[i][0] && left <= clovers[i][1]
                 && top >= clovers[i][2] && top < clovers[i][3]) {
-            
+
             document.getElementsByClassName('clovers')[i].style.background = "none";
         }
 
         // Traps
         else if (right >= traps[i][0] && right <= traps[i][1]
                 && bottom >= traps[i][2] && bottom < traps[i][3]) {
-            
+
             document.getElementsByClassName('traps')[i].style.background = "none";
         }
         else if (left >= traps[i][0] && left <= traps[i][1]
                 && top >= traps[i][2] && top < traps[i][3]) {
-            
+
             document.getElementsByClassName('traps')[i].style.background = "none";
         }
     }
@@ -219,9 +219,10 @@ function leprechaun_trap_init() {
            check_collision();
         },
         jump: function() {
-            TweenMax.to(char, .25, { y:"-=50px", ease:Power2.easeOut});
-            TweenMax.to(char, .25, { y:"+=50px", ease:Bounce.easeOut, delay:.25, immediateRender:false});
+            TweenMax.to(char, .25, { y:"-=20px", ease:Power2.easeOut});
             check_collision();
+            // TweenMax.to(char, .25, { y:"+=50px", ease:Bounce.easeOut, delay:.25, immediateRender:false});
+            // check_collision();
         },
     }
 
