@@ -104,10 +104,67 @@ function get_gamepiece_coords(piece_class) {
     for (var i = 0; i < pieces.length; i++) {
 
         var coords = pieces[i].getBoundingClientRect();
-        piece_coords.push([coords.left, coords.right]);
+        piece_coords.push([coords.left, coords.right, coords.top, coords.bottom]);
     }
 
     return piece_coords;
+}
+
+function get_char_coords() {
+    var lep = document.getElementById('char');
+    return lep.getBoundingClientRect();
+}
+
+function check_collision() {
+    var coins = get_gamepiece_coords('coins');
+    var clovers = get_gamepiece_coords('clovers');
+    var traps = get_gamepiece_coords('traps');
+
+    var player_loc = get_char_coords();
+    var top = player_loc.top;
+    var bottom = player_loc.top;
+    var left = player_loc.left;
+    var right = player_loc.right;
+
+    // Ugly Collision
+    for (var i = 0; i < coins.length; i++) {
+
+        // Coins
+        if (right >= coins[i][0] && right <= coins[i][1]
+                && bottom >= coins[i][2] && bottom < coins[i][3]) {
+            
+            document.getElementsByClassName('coins')[i].style.background = "none";
+        }
+        else if (left >= coins[i][0] && left <= coins[i][1]
+                && top >= coins[i][2] && top < coins[i][3]) {
+            
+            document.getElementsByClassName('coins')[i].style.background = "none";
+        }
+
+        // Clovers
+        else if (right >= clovers[i][0] && right <= clovers[i][1]
+                && bottom >= clovers[i][2] && bottom < clovers[i][3]) {
+            
+            document.getElementsByClassName('clovers')[i].style.background = "none";
+        }
+        else if (left >= clovers[i][0] && left <= clovers[i][1]
+                && top >= clovers[i][2] && top < clovers[i][3]) {
+            
+            document.getElementsByClassName('clovers')[i].style.background = "none";
+        }
+
+        // Traps
+        else if (right >= traps[i][0] && right <= traps[i][1]
+                && bottom >= traps[i][2] && bottom < traps[i][3]) {
+            
+            document.getElementsByClassName('traps')[i].style.background = "none";
+        }
+        else if (left >= traps[i][0] && left <= traps[i][1]
+                && top >= traps[i][2] && top < traps[i][3]) {
+            
+            document.getElementsByClassName('traps')[i].style.background = "none";
+        }
+    }
 }
 
 /** Initiate game start values and events */
@@ -131,6 +188,8 @@ function leprechaun_trap_init() {
                 backgroundPositionX: '+=32px',
                 backgroundPositionY: '-48px'
             })
+
+           check_collision();
         },
         right: function() {
            TweenMax.to(char, 0.0, {
@@ -138,6 +197,8 @@ function leprechaun_trap_init() {
                 backgroundPositionX: '-=32px',
                 backgroundPositionY: '-96px'
             })
+
+           check_collision();
         },
         up: function() {
            TweenMax.to(char, 0.0, {
@@ -145,6 +206,8 @@ function leprechaun_trap_init() {
                 backgroundPositionX: '+=32px',
                 backgroundPositionY: '-144px'
             })
+
+           check_collision();
         },
         down: function() {
            TweenMax.to(char, 0.0, {
@@ -152,10 +215,13 @@ function leprechaun_trap_init() {
                 backgroundPositionX: '+=32px',
                 backgroundPositionY: '-0px'
             })
+
+           check_collision();
         },
         jump: function() {
             TweenMax.to(char, .25, { y:"-=50px", ease:Power2.easeOut});
             TweenMax.to(char, .25, { y:"+=50px", ease:Bounce.easeOut, delay:.25, immediateRender:false});
+            check_collision();
         },
     }
 
@@ -183,7 +249,7 @@ function leprechaun_trap_init() {
 
 leprechaun_trap_init();
 
-/**
+
 tiles = get_tilemap_coords();
 rows = get_tilerow_coords();
 coins = get_gamepiece_coords('coins');
@@ -192,8 +258,8 @@ traps = get_gamepiece_coords('traps');
 
 console.log(tiles);
 console.log(rows);
+console.log('*****************************************');
 console.log(coins);
 console.log(clovers);
 console.log(traps);
 
-*/
