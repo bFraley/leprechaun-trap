@@ -133,36 +133,36 @@ function check_collision() {
         if (right >= coins[i][0] && right <= coins[i][1]
                 && bottom >= coins[i][2] && bottom < coins[i][3]) {
 
-            document.getElementsByClassName('coins')[i].style.background = "none";
+            document.getElementsByClassName('coins')[i].style.background = "#333";
         }
         else if (left >= coins[i][0] && left <= coins[i][1]
                 && top >= coins[i][2] && top < coins[i][3]) {
 
-            document.getElementsByClassName('coins')[i].style.background = "none";
+            document.getElementsByClassName('coins')[i].style.background = "#333";
         }
 
         // Clovers
         else if (right >= clovers[i][0] && right <= clovers[i][1]
                 && bottom >= clovers[i][2] && bottom < clovers[i][3]) {
 
-            document.getElementsByClassName('clovers')[i].style.background = "none";
+            document.getElementsByClassName('clovers')[i].style.background = "#333";
         }
         else if (left >= clovers[i][0] && left <= clovers[i][1]
                 && top >= clovers[i][2] && top < clovers[i][3]) {
 
-            document.getElementsByClassName('clovers')[i].style.background = "none";
+            document.getElementsByClassName('clovers')[i].style.background = "#333";
         }
 
         // Traps
         else if (right >= traps[i][0] && right <= traps[i][1]
                 && bottom >= traps[i][2] && bottom < traps[i][3]) {
 
-            document.getElementsByClassName('traps')[i].style.background = "none";
+            document.getElementsByClassName('traps')[i].style.backgroundColor = "red";
         }
         else if (left >= traps[i][0] && left <= traps[i][1]
                 && top >= traps[i][2] && top < traps[i][3]) {
 
-            document.getElementsByClassName('traps')[i].style.background = "none";
+            document.getElementsByClassName('traps')[i].style.backgroundColor = "red";
         }
     }
 }
