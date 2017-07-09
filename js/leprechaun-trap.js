@@ -148,14 +148,14 @@ function check_collision(score) {
         if (right >= coin[0] && right <= coin[1]
                 && bottom >= coin[2] && bottom < coin[3]) {
 
-            coin_element.style.background = "#333";
+            coin_element.className = 'tile';
             score.COINS += 1;
             score.DISPLAY[1].innerHTML = score.COINS;
         }
         else if (left >= coin[0] && left <= coin[1]
                 && top >= coin[2] && top < coin[3]) {
 
-            coin_element.style.background = "#333";
+            coin_element.className = 'tile';
             score.COINS += 1;
             score.DISPLAY[1].innerHTML = score.COINS;
         }
@@ -164,14 +164,14 @@ function check_collision(score) {
         else if (right >= clover[0] && right <= clover[1]
                 && bottom >= clover[2] && bottom < clover[3]) {
 
-            clover_element.style.background = "#333";
+            clover_element.className = 'tile';
             score.CLOVERS += 1;
             score.DISPLAY[0].innerHTML = score.CLOVERS;
         }
         else if (left >= clover[0] && left <= clover[1]
                 && top >= clover[2] && top < clover[3]) {
 
-            clover_element.style.background = "#333";
+            clover_element.className = 'tile';
             score.CLOVERS += 1;
             score.DISPLAY[0].innerHTML = score.CLOVERS;
         }
@@ -280,7 +280,7 @@ function leprechaun_trap_init() {
         },
         jump: function() {
             TweenMax.to(char, .25, { y:"-=20px", ease:Power2.easeOut});
-            check_collision();
+            check_collision(SCORE);
         },
     }
 
