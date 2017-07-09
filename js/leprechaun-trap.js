@@ -135,49 +135,57 @@ function check_collision(score) {
 
     // Ugly Collision
     for (var i = 0; i < coins.length; i++) {
+        var coin = coins[i];
+        var coin_element = document.getElementsByClassName('coins')[i];
+
+        var clover = clovers[i];
+        var clover_element = document.getElementsByClassName('clovers')[i];
+
+        var trap = traps[i];
+        var trap_element = document.getElementsByClassName('traps')[i];
 
         // Coins
-        if (right >= coins[i][0] && right <= coins[i][1]
-                && bottom >= coins[i][2] && bottom < coins[i][3]) {
+        if (right >= coin[0] && right <= coin[1]
+                && bottom >= coin[2] && bottom < coin[3]) {
 
-            document.getElementsByClassName('coins')[i].style.background = "#333";
+            coin_element.style.background = "#333";
             score.COINS += 1;
             score.DISPLAY[1].innerHTML = score.COINS;
         }
-        else if (left >= coins[i][0] && left <= coins[i][1]
-                && top >= coins[i][2] && top < coins[i][3]) {
+        else if (left >= coin[0] && left <= coin[1]
+                && top >= coin[2] && top < coin[3]) {
 
-            document.getElementsByClassName('coins')[i].style.background = "#333";
+            coin_element.style.background = "#333";
             score.COINS += 1;
             score.DISPLAY[1].innerHTML = score.COINS;
         }
 
         // Clovers
-        else if (right >= clovers[i][0] && right <= clovers[i][1]
-                && bottom >= clovers[i][2] && bottom < clovers[i][3]) {
+        else if (right >= clover[0] && right <= clover[1]
+                && bottom >= clover[2] && bottom < clover[3]) {
 
-            document.getElementsByClassName('clovers')[i].style.background = "#333";
+            clover_element.style.background = "#333";
             score.CLOVERS += 1;
             score.DISPLAY[0].innerHTML = score.CLOVERS;
         }
-        else if (left >= clovers[i][0] && left <= clovers[i][1]
-                && top >= clovers[i][2] && top < clovers[i][3]) {
+        else if (left >= clover[0] && left <= clover[1]
+                && top >= clover[2] && top < clover[3]) {
 
-            document.getElementsByClassName('clovers')[i].style.background = "#333";
+            clover_element.style.background = "#333";
             score.CLOVERS += 1;
             score.DISPLAY[0].innerHTML = score.CLOVERS;
         }
 
         // Traps
-        else if (right >= traps[i][0] && right <= traps[i][1]
-                && bottom >= traps[i][2] && bottom < traps[i][3]) {
+        else if (right >= trap[0] && right <= trap[1]
+                && bottom >= trap[2] && bottom < trap[3]) {
 
-            document.getElementsByClassName('traps')[i].style.backgroundColor = "red";
+            trap_element.style.backgroundColor = "red";
         }
-        else if (left >= traps[i][0] && left <= traps[i][1]
-                && top >= traps[i][2] && top < traps[i][3]) {
+        else if (left >= trap[0] && left <= trap[1]
+                && top >= trap[2] && top < trap[3]) {
 
-            document.getElementsByClassName('traps')[i].style.backgroundColor = "red";
+            trap_element.style.backgroundColor = "red";
         }
     }
 }
