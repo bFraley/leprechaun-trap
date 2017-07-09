@@ -83,6 +83,12 @@ function get_tilemap_coords() {
     return tile_map_state;
 }
 
+// Returns game-wrapper boundaries - requires the game-wrapper element
+function get_game_wrapper_coords(game) {
+    var coords = game.getBoundingClientRect();
+    return [coords.left, coords.right, coords.top, coords.bottom];
+}
+
 // Returns left and right side coords of rows
 function get_tilerow_coords() {
     var tile_rows = document.getElementsByClassName('tile-row');
@@ -115,7 +121,8 @@ function get_char_coords() {
     return lep.getBoundingClientRect();
 }
 
-function check_collision() {
+// Pass in game score object on check collision of clovers, coins, traps
+function check_collision(score) {
     var coins = get_gamepiece_coords('coins');
     var clovers = get_gamepiece_coords('clovers');
     var traps = get_gamepiece_coords('traps');
@@ -134,11 +141,15 @@ function check_collision() {
                 && bottom >= coins[i][2] && bottom < coins[i][3]) {
 
             document.getElementsByClassName('coins')[i].style.background = "#333";
+            score.COINS += 1;
+            score.DISPLAY[1].innerHTML = score.COINS;
         }
         else if (left >= coins[i][0] && left <= coins[i][1]
                 && top >= coins[i][2] && top < coins[i][3]) {
 
             document.getElementsByClassName('coins')[i].style.background = "#333";
+            score.COINS += 1;
+            score.DISPLAY[1].innerHTML = score.COINS;
         }
 
         // Clovers
@@ -146,11 +157,15 @@ function check_collision() {
                 && bottom >= clovers[i][2] && bottom < clovers[i][3]) {
 
             document.getElementsByClassName('clovers')[i].style.background = "#333";
+            score.CLOVERS += 1;
+            score.DISPLAY[0].innerHTML = score.CLOVERS;
         }
         else if (left >= clovers[i][0] && left <= clovers[i][1]
                 && top >= clovers[i][2] && top < clovers[i][3]) {
 
             document.getElementsByClassName('clovers')[i].style.background = "#333";
+            score.CLOVERS += 1;
+            score.DISPLAY[0].innerHTML = score.CLOVERS;
         }
 
         // Traps
@@ -174,55 +189,90 @@ function leprechaun_trap_init() {
     // Character and game wrapper
     var char = document.getElementById('char');
     var gamewrapper = document.getElementById("game-wrapper");
+    var game_edges = get_game_wrapper_coords(gamewrapper);
 
     // Instantiate a Level, generate game, and render.
     var LEVEL1 = new Level(500, 500, "trap floor", "clovers and coins", 5);
     var levelobjects = LEVEL1.gen_game();
     LEVEL1.render(levelobjects);
 
+    SCORE = {
+        DISPLAY: [
+            document.getElementById('clover-score'),
+            document.getElementById('coin-score')
+        ],
+        CLOVERS: 0,
+        COINS: 0
+    };
+
+    // Is leprechaun character at the edge of the game arena?
+    function player_on_game_edge() {
+        var player_loc = get_char_coords();
+
+        switch(player_loc) {
+            case !(player_loc.left >= game_edges[0]) : return true; break;
+            case !(player_loc.right >= game_edges[1]) : return true; break;
+            case !(player_loc.top >= game_edges[2]) : return true; break;
+            case !(player_loc.bottom >= game_edges[3]) : return true; break;
+            default: return false;
+        }
+    }
+
+
+
     // Basic character movement with arrow keys, and spacebar for jump.
     var lepmove = {
         left: function() {
-           TweenMax.to(char, 0.0, {
-                x:'-=10',
-                backgroundPositionX: '+=32px',
-                backgroundPositionY: '-48px'
-            })
+            if (!player_on_game_edge()) {
 
-           check_collision();
+                TweenMax.to(char, 0.0, {
+                    x:'-=10',
+                    backgroundPositionX: '+=32px',
+                    backgroundPositionY: '-48px'
+                });
+            }
+
+            check_collision(SCORE);
         },
         right: function() {
-           TweenMax.to(char, 0.0, {
-                x:'+=10',
-                backgroundPositionX: '-=32px',
-                backgroundPositionY: '-96px'
-            })
+            if (!player_on_game_edge()) {
 
-           check_collision();
+                TweenMax.to(char, 0.0, {
+                    x:'+=10',
+                    backgroundPositionX: '-=32px',
+                    backgroundPositionY: '-96px'
+                });
+            }
+
+           check_collision(SCORE);
         },
         up: function() {
-           TweenMax.to(char, 0.0, {
-                y:'-=10',
-                backgroundPositionX: '+=32px',
-                backgroundPositionY: '-144px'
-            })
+            if (!player_on_game_edge()) {
 
-           check_collision();
+                TweenMax.to(char, 0.0, {
+                    y:'-=10',
+                    backgroundPositionX: '+=32px',
+                    backgroundPositionY: '-144px'
+                });
+            }
+
+           check_collision(SCORE);
         },
         down: function() {
-           TweenMax.to(char, 0.0, {
-                y:'+=10',
-                backgroundPositionX: '+=32px',
-                backgroundPositionY: '-0px'
-            })
+            if (!player_on_game_edge()) {
 
-           check_collision();
+                TweenMax.to(char, 0.0, {
+                    y:'+=10',
+                    backgroundPositionX: '+=32px',
+                    backgroundPositionY: '-0px'
+                });
+            }
+
+           check_collision(SCORE);
         },
         jump: function() {
             TweenMax.to(char, .25, { y:"-=20px", ease:Power2.easeOut});
             check_collision();
-            // TweenMax.to(char, .25, { y:"+=50px", ease:Bounce.easeOut, delay:.25, immediateRender:false});
-            // check_collision();
         },
     }
 
@@ -249,7 +299,6 @@ function leprechaun_trap_init() {
 // Launch
 
 leprechaun_trap_init();
-
 
 tiles = get_tilemap_coords();
 rows = get_tilerow_coords();
